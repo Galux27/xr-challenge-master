@@ -19,10 +19,11 @@ public class LevelGenerator : MonoBehaviour
     bool moveVertical = false,movePositive=true;
 
     char[,] levelGenerated;
+    Texture2D mapBase;
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("Level") ==0)
+        if (PlayerPrefs.GetInt("Level") ==0 || Application.isEditor)
         {
             PlayerPrefs.SetInt("Level", 1);
         }
@@ -32,6 +33,12 @@ public class LevelGenerator : MonoBehaviour
         }
         generateLevel();
     }
+
+    private void Start()
+    {
+        MapController.me.setMapTexture(mapBase);
+    }
+
     void generateLevel()
     {
         for(int x= 0; x < PlayerPrefs.GetInt("Level"); x++)
@@ -175,20 +182,20 @@ public class LevelGenerator : MonoBehaviour
         }
 
         //create floor
-        GameObject floor = (GameObject) Instantiate(floorPrefab, new Vector3((width / 2)-0.5f, -1.0f, (height / 2)-0.5f), Quaternion.Euler(0, 0, 0));
-        floor.transform.localScale = new Vector3(width, 1, height);
+        GameObject floor = (GameObject) Instantiate(floorPrefab, new Vector3((width / 2)-0.5f, -1.0f, (height / 2)-0.25f), Quaternion.Euler(0, 0, 0));
+        floor.transform.localScale = new Vector3(width+1, 1, height+1);
 
         //create world edge
-        GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0, height), Quaternion.Euler(0, 0, 0));
+        GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, height), Quaternion.Euler(0, 0, 0));
         topWall.transform.localScale = new Vector3(width, 2, 1);
         topWall.name = "Top Wall";
-        GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0, 0), Quaternion.Euler(0, 0, 0));
+        GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, 0), Quaternion.Euler(0, 0, 0));
         bottomWall.transform.localScale = new Vector3(width, 2, 1);
         bottomWall.name = "Bottom Wall";
-        GameObject rightWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(width, 0, height/2), Quaternion.Euler(0, 0, 0));
+        GameObject rightWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(width , 0.5f, height/2), Quaternion.Euler(0, 0, 0));
         rightWall.transform.localScale = new Vector3(1, 2, height);
         rightWall.name = "Right Wall";
-        GameObject leftWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(0, 0, height / 2), Quaternion.Euler(0, 0, 0));
+        GameObject leftWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(0.0f, 0.5f, height / 2), Quaternion.Euler(0, 0, 0));
         leftWall.transform.localScale = new Vector3(1, 2, height);
         leftWall.name = "Left Wall";
     
@@ -197,11 +204,37 @@ public class LevelGenerator : MonoBehaviour
 
         for (int x = 0; x < starsToSpawn; x++)
         {
-            Instantiate(starPrefab, validPoints[Random.Range(0, validPoints.Count)], starPrefab.transform.rotation);
+            GameObject star = (GameObject) Instantiate(starPrefab, validPoints[Random.Range(0, validPoints.Count)], starPrefab.transform.rotation);
+            levelGenerated[Mathf.RoundToInt(star.transform.position.x), Mathf.RoundToInt(star.transform.position.z)] = 's';
         }
 
-        Instantiate(exitPrefab, validPoints[Random.Range(0, validPoints.Count)], exitPrefab.transform.rotation);
+        GameObject exit = (GameObject)Instantiate(exitPrefab, validPoints[Random.Range(0, validPoints.Count)], exitPrefab.transform.rotation);
+        levelGenerated[Mathf.RoundToInt(exit.transform.position.x), Mathf.RoundToInt(exit.transform.position.z)] = 'e';
+        createMapBase();
+    }
 
+    void createMapBase()
+    {
+        mapBase = new Texture2D(width, height);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (levelGenerated[x, y] == 'n')
+                {
+                     mapBase.SetPixel(x,y,Color.gray);
+                }else if (levelGenerated[x, y] == 'r' || levelGenerated[x, y] == 'c')
+                {
+                    mapBase.SetPixel(x, y, new Color(0.1f,0.1f,0.1f,1.0f));
+                }else if (levelGenerated[x, y] == 'e')
+                {
+                    mapBase.SetPixel(x, y, Color.green);
+                }
+            }
+        }
+        mapBase.filterMode = FilterMode.Point;
+        mapBase.Apply();
     }
 
     bool isPosInWorld(int x,int y)

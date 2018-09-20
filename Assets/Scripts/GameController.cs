@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     Text scoreDisplay,remainingStars,finishedText,timeTakenText,objectiveReminder;
     int score = 0;
     int pickupsFound = 0;
-    Pickup[] pickups;
+    public Pickup[] pickups { get; private set; }
     bool gameFinished = false;//bool keeps track of whether the player has all the stars and has reached the end
     float timeTaken = 0.0f, objectiveRemindFade = 2.0f;
 

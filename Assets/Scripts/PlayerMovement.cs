@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement me;
+
+    private void Awake()
+    {
+        me = this;
+    }
+
     [SerializeField]
     float playerSpeed = 5.0f;
 
