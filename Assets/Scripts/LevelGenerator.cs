@@ -17,14 +17,45 @@ public class LevelGenerator : MonoBehaviour
 
     int xPos = 0, yPos = 0;
     bool moveVertical = false,movePositive=true;
+
+    char[,] levelGenerated;
+
     private void Awake()
     {
+        if (PlayerPrefs.GetInt("Level") ==0)
+        {
+            PlayerPrefs.SetInt("Level", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+        }
         generateLevel();
     }
     void generateLevel()
     {
-      
-        char[,] levelGenerated = new char[width, height];
+        for(int x= 0; x < PlayerPrefs.GetInt("Level"); x++)
+        {
+            if(width<100)
+            {
+                width += 5;
+            }
+
+            if (height < 100)
+            {
+                height += 5;
+            }
+
+            if(maxMoves<3500)
+            {
+                maxMoves += 100;
+            }
+
+            starsToSpawn += 2;
+        }
+
+
+        levelGenerated = new char[width, height];
         xPos = Random.Range(0, width - 1);
         yPos = Random.Range(0, height - 1);
         List<Vector3> validPoints = new List<Vector3>();
@@ -38,8 +69,8 @@ public class LevelGenerator : MonoBehaviour
 
         for(int x =0;x<maxMoves;x++)
         {
-            int r = Random.RandomRange(0, 100);
-            Debug.Log(xPos + ":" + yPos);
+            int r = Random.Range(0, 100);
+
             if(r<80)
             {
                 //do nothing
@@ -52,7 +83,7 @@ public class LevelGenerator : MonoBehaviour
                 moveVertical = !moveVertical;
                 levelGenerated[xPos, yPos] = 'c';
                 validPoints.Add(new Vector3(xPos, 0, yPos));
-                int r2 = Random.RandomRange(0, 100);
+                int r2 = Random.Range(0, 100);
                 if(r2<50)
                 {
                     movePositive = !movePositive;
@@ -61,8 +92,8 @@ public class LevelGenerator : MonoBehaviour
             else
             {
                 //create room
-                int width = Random.RandomRange(3, 7);
-                int height = Random.RandomRange(3, 7);
+                int width = Random.Range(3, 7);
+                int height = Random.Range(3, 7);
 
                 for(int x2 = xPos - width; x2 < xPos; x2 ++)
                 {

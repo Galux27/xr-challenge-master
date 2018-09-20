@@ -16,15 +16,17 @@ public class EndZoneController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if (ScoreController.me.isGameFinished())
+            if (GameController.me.isGameFinished())
             {
                 Debug.Log("Game is done");
                 r.material = mat1;
+                GameController.me.setPlayerExited();
             }
             else
             {
                 Debug.Log("Game is not done");
                 r.material = mat2;
+                GameController.me.enableObjectiveReminder();
             }
         }
     }
