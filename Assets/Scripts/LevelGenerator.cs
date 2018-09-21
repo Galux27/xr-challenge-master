@@ -189,13 +189,13 @@ public class LevelGenerator : MonoBehaviour
         GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, height), Quaternion.Euler(0, 0, 0));
         topWall.transform.localScale = new Vector3(width, 2, 1);
         topWall.name = "Top Wall";
-        GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, 0), Quaternion.Euler(0, 0, 0));
+        GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, -1), Quaternion.Euler(0, 0, 0));
         bottomWall.transform.localScale = new Vector3(width, 2, 1);
         bottomWall.name = "Bottom Wall";
         GameObject rightWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(width , 0.5f, height/2), Quaternion.Euler(0, 0, 0));
         rightWall.transform.localScale = new Vector3(1, 2, height);
         rightWall.name = "Right Wall";
-        GameObject leftWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(0.0f, 0.5f, height / 2), Quaternion.Euler(0, 0, 0));
+        GameObject leftWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(-1.0f, 0.5f, height / 2), Quaternion.Euler(0, 0, 0));
         leftWall.transform.localScale = new Vector3(1, 2, height);
         leftWall.name = "Left Wall";
     

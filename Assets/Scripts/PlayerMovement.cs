@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement me;
 
+    [SerializeField]
+    GameObject childVisual;
     private void Awake()
     {
         me = this;
@@ -25,11 +27,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         movePlayer();
     }
 
+    private void Update()
+    {
+        transformDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        if (transformDir != Vector3.zero)
+        {
+            childVisual.transform.rotation = Quaternion.Slerp(childVisual.transform.rotation, Quaternion.LookRotation(transformDir * -1), playerSpeed * Time.deltaTime);
+        }
+    }
+    Vector3 transformDir;
     void movePlayer()
     {
         if (rb.velocity.magnitude >= velocityLimit)
@@ -37,7 +49,8 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        Vector3 transformDir = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical"));
         rb.AddForce(transformDir*playerSpeed, ForceMode.Acceleration);
+
+       
     }
 }

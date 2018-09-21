@@ -9,6 +9,12 @@ public class Missile : MonoBehaviour
 
     Rigidbody rb;
 
+    GameObject myCreator;
+
+    public void SetCreator(GameObject g)
+    {
+        myCreator = g;
+    }
 
     void Start()
     {
@@ -20,7 +26,7 @@ public class Missile : MonoBehaviour
     {
         if(rb.velocity.magnitude < 5)
         {
-            rb.AddForce((transform.forward).normalized * 5, ForceMode.Acceleration);
+            rb.AddForce((transform.forward).normalized * 7, ForceMode.Acceleration);
         }
     }
 
@@ -32,6 +38,11 @@ public class Missile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject == myCreator)
+        {
+            return;
+        }
+
         //Debug.Log("Missile collided with " + collision.collider.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
