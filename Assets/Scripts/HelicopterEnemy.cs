@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class HelicopterEnemy : MonoBehaviour
 {
+    public static List<HelicopterEnemy> instances;
+
+    private void Awake()
+    {
+        if(instances==null)
+        {
+            instances = new List<HelicopterEnemy>();
+        }
+        instances.Add(this);
+    }
+
 
     Vector3 startPosition = Vector3.zero;
     Rigidbody rb;
@@ -13,8 +24,7 @@ public class HelicopterEnemy : MonoBehaviour
     [SerializeField]
     List<Transform> missileSpawnPoints;
 
-    [SerializeField]
-    GameObject missilePrefab;
+    
     float attackTimer = 1.0f;
     private void Start()
     {
@@ -68,10 +78,16 @@ public class HelicopterEnemy : MonoBehaviour
         attackTimer -= Time.deltaTime;
         if(attackTimer<=0)
         {
-            GameObject g = (GameObject) Instantiate(missilePrefab, missileSpawnPoints[Random.Range(0, missileSpawnPoints.Count)].transform.position, this.transform.rotation);
+            GameObject g = (GameObject) Instantiate(PrefabStore.me.missile, missileSpawnPoints[Random.Range(0, missileSpawnPoints.Count)].transform.position, Quaternion.Euler(this.transform.rotation.eulerAngles*-1));
             g.GetComponent<Missile>().SetCreator(this.gameObject);
+
             Debug.Log("Created missile");
             attackTimer = 1.0f;
         }
+    }
+
+    private void OnDestroy()
+    {
+        HelicopterEnemy.instances.Remove(this);
     }
 }

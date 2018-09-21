@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168545292238489165}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5930004, y: 1.2010002, z: 0.194}
+  m_LocalPosition: {x: -1.43, y: 0.68, z: -0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2512964654557435536}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847898237412608274}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.11, y: 1.2010002, z: 0.194}
+  m_LocalPosition: {x: -0.66, y: 0.73, z: -0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2512964654557435536}
@@ -116,7 +116,6 @@ MonoBehaviour:
   - {fileID: 3278233287175549331}
   - {fileID: 4687394992655648908}
   - {fileID: 5052441859020794493}
-  missilePrefab: {fileID: 7305955869835870411, guid: 44aadf82dee09de4d821b9b3c4db732a, type: 3}
 --- !u!1 &5273659052258964272
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5273659052258964272}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.185, y: 1.2010002, z: 0.194}
+  m_LocalPosition: {x: 0.6, y: 0.75, z: -0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2512964654557435536}
@@ -171,7 +170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8356751994698934025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.668, y: 1.201, z: 0.194}
+  m_LocalPosition: {x: 1.35, y: 0.85, z: -0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2512964654557435536}
@@ -267,6 +266,10 @@ PrefabInstance:
     - target: {fileID: 400004, guid: 56f01f0f2ab113c48ae2008396efd857, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 56f01f0f2ab113c48ae2008396efd857, type: 3}
+      propertyPath: m_TagString
+      value: EnemyHeli
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f01f0f2ab113c48ae2008396efd857, type: 3}

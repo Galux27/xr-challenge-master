@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 714177377}
   - component: {fileID: 714177378}
   - component: {fileID: 714177379}
+  - component: {fileID: 714177380}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -450,7 +451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unwalkablePrefab: {fileID: 1033438632884243095, guid: 174d4ddd957328c4797304f95389acf1, type: 3}
   floorPrefab: {fileID: 3418880060855102054, guid: 1a5bcfe5c25ee3749b3183036ba979ee, type: 3}
-  playerPrefab: {fileID: 4249881698155263153, guid: 8d42de6de8138114aa66d789b74b551e, type: 3}
   starPrefab: {fileID: 1445629761334165504, guid: 9c436d2eaf5a77e48a26bcbc3a68e3cb, type: 3}
   exitPrefab: {fileID: 6156158677991704756, guid: 23676a646182e9245a6cb159c90bb78d, type: 3}
   width: 90
@@ -470,6 +470,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapDisplay: {fileID: 736767207}
+--- !u!114 &714177380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714177375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66fddd07044296498374ce36fb63231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hind: {fileID: 2512964654557661872, guid: c8aa99eccd0d130438f1c3593fe77449, type: 3}
+  sam: {fileID: 4198354193193767719, guid: 94b3dc2feb70a2840a349d5799a39fc2, type: 3}
+  missile: {fileID: 7305955869835870411, guid: 44aadf82dee09de4d821b9b3c4db732a, type: 3}
+  samMissile: {fileID: 7305955869835870411, guid: 888d1dbff22220b4a9c8d0b027cc8f85, type: 3}
+  explosionEffect: {fileID: 5801492737484634294, guid: a69f1087e51404b4dabea6f9c92ae1e7, type: 3}
+  player: {fileID: 4249881698155263153, guid: 8d42de6de8138114aa66d789b74b551e, type: 3}
 --- !u!1 &736767206
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,10 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &8166978076396037755 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2067756952262248064, guid: 166759f644a360b40a08f4a932e2287a, type: 3}
+  m_PrefabInstance: {fileID: 7918676919914242299}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6280024697821321489
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +185,7 @@ GameObject:
   - component: {fileID: 7305955869835870409}
   - component: {fileID: 7305955869835870410}
   m_Layer: 9
-  m_Name: Missile
+  m_Name: SamMissile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 7305955869835870411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7478945, y: 4.564, z: -0.87727195}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 7305955869201355801}
   - {fileID: 8166978076396037755}
@@ -215,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e340f4de07f9ba46bcb5c0d1a637cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage: 25
 --- !u!54 &7305955869835870410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -232,11 +237,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!4 &8166978076396037755 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2067756952262248064, guid: 166759f644a360b40a08f4a932e2287a, type: 3}
-  m_PrefabInstance: {fileID: 7918676919914242299}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7918676919914242299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -307,10 +307,6 @@ PrefabInstance:
     - target: {fileID: 520139959321564192, guid: 166759f644a360b40a08f4a932e2287a, type: 3}
       propertyPath: m_Layer
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2712387454682279556, guid: 166759f644a360b40a08f4a932e2287a, type: 3}
-      propertyPath: scalingMode
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 166759f644a360b40a08f4a932e2287a, type: 3}

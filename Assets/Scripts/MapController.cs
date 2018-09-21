@@ -62,6 +62,28 @@ public class MapController : MonoBehaviour
             }
         }
 
+        foreach (HelicopterEnemy s in HelicopterEnemy.instances)
+        {
+            if(Vector3.Distance(PlayerMovement.me.transform.position,s.gameObject.transform.position)>10)
+            {
+                continue;
+            }
+
+            Vector2Int pos = getWorldPosInArray(s.gameObject.transform.position);
+            combined.SetPixel(pos.x, pos.y, Color.blue);
+        }
+
+        foreach (SamSite s in SamSite.instances)
+        {
+            if (Vector3.Distance(PlayerMovement.me.transform.position, s.gameObject.transform.position) > 10)
+            {
+                continue;
+            }
+
+            Vector2Int pos = getWorldPosInArray(s.gameObject.transform.position);
+            combined.SetPixel(pos.x, pos.y, Color.blue);
+        }
+
         combined.filterMode = FilterMode.Point;
 
         combined.Apply();

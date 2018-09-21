@@ -10,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     //
 
     [SerializeField]
-    GameObject unwalkablePrefab,floorPrefab,playerPrefab,starPrefab,exitPrefab;
+    GameObject unwalkablePrefab,floorPrefab,starPrefab,exitPrefab;
 
     [SerializeField]
     int width = 50, height = 50,maxMoves=1500,starsToSpawn=10;
@@ -41,6 +41,7 @@ public class LevelGenerator : MonoBehaviour
 
     void generateLevel()
     {
+
         for(int x= 0; x < PlayerPrefs.GetInt("Level"); x++)
         {
             if(width<100)
@@ -84,12 +85,64 @@ public class LevelGenerator : MonoBehaviour
                 
                 levelGenerated[xPos, yPos] = 'c';
                 validPoints.Add(new Vector3(xPos,0, yPos));
-            }else if(r<95)
+
+
+                //while valid the points on the edge of the cursor are not added to the validPoints list to make sure objects spawned have some space around them if in a corridor
+                if (isPosInWorld(xPos + 1, yPos))
+                {
+                    levelGenerated[xPos+1, yPos] = 'c';
+
+                }
+
+                if (isPosInWorld(xPos - 1, yPos))
+                {
+                    levelGenerated[xPos-1, yPos] = 'c';
+
+                }
+
+                if (isPosInWorld(xPos, yPos+1))
+                {
+                    levelGenerated[xPos, yPos+1] = 'c';
+
+                }
+
+                if (isPosInWorld(xPos, yPos-1))
+                {
+                    levelGenerated[xPos, yPos-1] = 'c';
+
+                }
+
+            }
+            else if(r<95)
             {
                 //change direction
                 moveVertical = !moveVertical;
                 levelGenerated[xPos, yPos] = 'c';
                 validPoints.Add(new Vector3(xPos, 0, yPos));
+
+                if (isPosInWorld(xPos + 1, yPos))
+                {
+                    levelGenerated[xPos + 1, yPos] = 'c';
+
+                }
+
+                if (isPosInWorld(xPos - 1, yPos))
+                {
+                    levelGenerated[xPos - 1, yPos] = 'c';
+
+                }
+
+                if (isPosInWorld(xPos, yPos + 1))
+                {
+                    levelGenerated[xPos, yPos + 1] = 'c';
+
+                }
+
+                if (isPosInWorld(xPos, yPos - 1))
+                {
+                    levelGenerated[xPos, yPos - 1] = 'c';
+
+                }
                 int r2 = Random.Range(0, 100);
                 if(r2<50)
                 {
@@ -199,7 +252,7 @@ public class LevelGenerator : MonoBehaviour
         leftWall.transform.localScale = new Vector3(1, 2, height);
         leftWall.name = "Left Wall";
     
-        GameObject player = (GameObject)Instantiate(playerPrefab, validPoints[Random.Range(0, validPoints.Count)], Quaternion.Euler(0, 0, 0));
+        GameObject player = (GameObject)Instantiate(PrefabStore.me.player, validPoints[Random.Range(0, validPoints.Count)], Quaternion.Euler(0, 0, 0));
         FindObjectOfType<CameraFollowPlayer>().SetPlayerToFollow(player.transform);
 
         for (int x = 0; x < starsToSpawn; x++)
@@ -210,6 +263,27 @@ public class LevelGenerator : MonoBehaviour
 
         GameObject exit = (GameObject)Instantiate(exitPrefab, validPoints[Random.Range(0, validPoints.Count)], exitPrefab.transform.rotation);
         levelGenerated[Mathf.RoundToInt(exit.transform.position.x), Mathf.RoundToInt(exit.transform.position.z)] = 'e';
+
+        int numOfHelisToSpawn = 5 + PlayerPrefs.GetInt("Level");
+        for(int x=0;x<numOfHelisToSpawn;x++)
+        {
+            Vector3 pos = validPoints[Random.Range(0,validPoints.Count)];
+            if (Vector3.Distance(pos, player.transform.position) >= 15)
+            {
+                Instantiate(PrefabStore.me.hind, pos, Quaternion.Euler(0, 0, 0));
+            }
+        }
+
+        int numOfSamsToSpawn = 3 + PlayerPrefs.GetInt("Level");
+        for (int x = 0; x < numOfSamsToSpawn; x++)
+        {
+            Vector3 pos = validPoints[Random.Range(0, validPoints.Count)];
+            if (Vector3.Distance(pos, player.transform.position) >= 15)
+            {
+                Instantiate(PrefabStore.me.sam, pos, Quaternion.Euler(0, 0, 0));
+            }
+        }
+
         createMapBase();
     }
 
