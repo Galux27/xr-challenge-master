@@ -228,8 +228,33 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (levelGenerated[x, y] == 'n')
                 {
-                    GameObject g = (GameObject) Instantiate(unwalkablePrefab, new Vector3(x, 0, y), Quaternion.Euler(0, 0, 0));
+                    float yScale = Random.Range(1, 4);
+                    GameObject g = (GameObject) Instantiate(unwalkablePrefab, new Vector3(x,(yScale / 2)-0.5f, y ), Quaternion.Euler(0, 0, 0));
+                    g.transform.localScale = new Vector3(1,yScale, 1);
+                    Material m = PrefabStore.me.GetMaterialForBuilding(yScale);
+                    g.GetComponentInChildren<Renderer>().material=m;//get renderer from children as the visual is a child object due to the pivot of the model being off somewhat
+                    m.SetTextureScale("_MainTex", new Vector2(1,yScale));//not sure why but we need to set the scale of the texture here for it to work, still works by referencing the material from the
+                    //prefab store but it won't have the correct scaling unless its done again here.
                     g.transform.parent = this.transform;
+
+                    bool surroundedByUnwalkable = true;
+                    for(int x2 = x - 1; x2 < x + 1 && surroundedByUnwalkable==true; x2++)
+                    {
+                        for(int y2=y-2; y2<y+1 && surroundedByUnwalkable == true; y2++)
+                        {
+                            if (isPosInWorld(x2, y2) == true)
+                            {
+                                if (levelGenerated[x2, y2] != 'n')
+                                {
+                                    surroundedByUnwalkable = false;
+                                }
+                            }
+                        }
+                    }
+                    if (surroundedByUnwalkable == true)
+                    {
+                        Destroy(g.GetComponent<BoxCollider>());//destroy colliders of buildings that are surrounded by buildings, may give performance increase
+                    }
                 }
             }
         }
@@ -239,19 +264,25 @@ public class LevelGenerator : MonoBehaviour
         floor.transform.localScale = new Vector3(width+1, 1, height+1);
 
         //create world edge
-        GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, height), Quaternion.Euler(0, 0, 0));
+        GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2)+1, 0.5f, height), Quaternion.Euler(0, 0, 0));
         topWall.transform.localScale = new Vector3(width+2, 2, 1);
         topWall.name = "Top Wall";
-        GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, -1), Quaternion.Euler(0, 0, 0));
+        topWall.GetComponentInChildren<Renderer>().material = PrefabStore.me.wallMat;
+        GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2)+1, 0.5f, -1), Quaternion.Euler(0, 0, 0));
         bottomWall.transform.localScale = new Vector3(width+2, 2, 1);
         bottomWall.name = "Bottom Wall";
+        bottomWall.GetComponentInChildren<Renderer>().material = PrefabStore.me.wallMat;
+
         GameObject rightWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(width , 0.5f, height/2), Quaternion.Euler(0, 0, 0));
         rightWall.transform.localScale = new Vector3(1, 2, height+2);
         rightWall.name = "Right Wall";
+        rightWall.GetComponentInChildren<Renderer>().material = PrefabStore.me.wallMat;
+
         GameObject leftWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(-1.0f, 0.5f, height / 2), Quaternion.Euler(0, 0, 0));
         leftWall.transform.localScale = new Vector3(1, 2, height+2);
         leftWall.name = "Left Wall";
-    
+        leftWall.GetComponentInChildren<Renderer>().material = PrefabStore.me.wallMat;
+
         GameObject player = (GameObject)Instantiate(PrefabStore.me.player, validPoints[Random.Range(0, validPoints.Count)], Quaternion.Euler(0, 0, 0));
         FindObjectOfType<CameraFollowPlayer>().SetPlayerToFollow(player.transform);
 

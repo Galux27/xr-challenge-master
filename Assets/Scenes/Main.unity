@@ -566,6 +566,15 @@ MonoBehaviour:
   samMissile: {fileID: 7305955869835870411, guid: 888d1dbff22220b4a9c8d0b027cc8f85, type: 3}
   explosionEffect: {fileID: 5801492737484634294, guid: a69f1087e51404b4dabea6f9c92ae1e7, type: 3}
   player: {fileID: 4249881698155263153, guid: 8d42de6de8138114aa66d789b74b551e, type: 3}
+  texturesForBuildigns:
+  - {fileID: 2800000, guid: 23c72061f102f714188c3ad8ee8878f6, type: 3}
+  - {fileID: 2800000, guid: 9d4e8841df0214b4ebe5b22f68c3681f, type: 3}
+  - {fileID: 2800000, guid: c8a818f6e7478454da1cf061b64e1c95, type: 3}
+  - {fileID: 2800000, guid: e1c5e40dd6ce5ea489f50008455be6ec, type: 3}
+  defaultShader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  oneHighBuildings: []
+  twoHighBuildings: []
+  threeHighBuildings: []
 --- !u!1 &736767206
 GameObject:
   m_ObjectHideFlags: 0
