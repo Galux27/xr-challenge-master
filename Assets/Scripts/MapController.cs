@@ -84,6 +84,9 @@ public class MapController : MonoBehaviour
             combined.SetPixel(pos.x, pos.y, Color.blue);
         }
 
+        Vector2Int exitPos = getWorldPosInArray(EndZoneController.me.transform.position);
+        combined.SetPixel(exitPos.x, exitPos.y, Color.green);
+
         combined.filterMode = FilterMode.Point;
 
         combined.Apply();

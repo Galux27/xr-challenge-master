@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
 
@@ -9,6 +10,10 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     public Image healthDisp;
+
+
+    [SerializeField]
+    GameObject deathDisplayParent;
     [SerializeField]
     int health = 1000;
     float startingWidth=0.0f;
@@ -29,7 +34,16 @@ public class PlayerHealth : MonoBehaviour
         r.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (startingWidth / 1000.0f) * (float)health);
         if (health<=0)
         {
+            deathDisplayParent.SetActive(true);
+            Instantiate(PrefabStore.me.explosionEffect, PlayerMovement.me.transform.position, PlayerMovement.me.transform.rotation);
+            PlayerMovement.me.setDead();
             //create explosion, reset stuff, fail
         }
+    }
+
+    public void deathRestart()
+    {
+        PlayerPrefs.SetInt("Level", 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

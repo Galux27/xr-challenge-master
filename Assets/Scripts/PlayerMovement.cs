@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     float velocityLimit = 5.0f;
 
     Rigidbody rb;
+    bool dead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(dead==true)
+        {
+            return;
+        }
         transformDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         if (transformDir != Vector3.zero)
@@ -52,5 +57,10 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(transformDir*playerSpeed, ForceMode.Acceleration);
 
        
+    }
+
+    public void setDead()
+    {
+        dead = true;
     }
 }

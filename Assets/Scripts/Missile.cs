@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
+    public static List<Missile> instances;
+
+
     [SerializeField]
     int damage = 50;
 
     Rigidbody rb;
 
     GameObject myCreator;
+
+    private void Awake()
+    {
+        if(Missile.instances==null)
+        {
+            Missile.instances = new List<Missile>();
+        }
+        Missile.instances.Add(this);
+    }
 
     public void SetCreator(GameObject g)
     {
@@ -74,8 +86,8 @@ public class Missile : MonoBehaviour
     {
         ParticleSystem missileSmoke = this.GetComponentInChildren<ParticleSystem>();
         missileSmoke.gameObject.transform.parent = null;
-        missileSmoke.loop = false;
+        missileSmoke.loop= false;
         missileSmoke.Stop();
-
+        Missile.instances.Remove(this);
     }
 }

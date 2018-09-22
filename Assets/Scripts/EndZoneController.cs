@@ -8,8 +8,11 @@ public class EndZoneController : MonoBehaviour
     Material mat1, mat2;
     Renderer r;
 
+    public static EndZoneController me;
+
     private void Awake()
     {
+        me = this;
         r = this.gameObject.GetComponent<Renderer>();
     }
     private void OnTriggerEnter(Collider other)

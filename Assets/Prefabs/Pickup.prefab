@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1448076644002223338}
   - component: {fileID: 1476997117683798080}
   - component: {fileID: 1467426158460047454}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4688268134054796558}
   - component: {fileID: 8288683411455402197}
   - component: {fileID: 1443701569413244825}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
 
     void addScore(Pickup p)
     {
+
+
         Debug.Log("Score being increased");
         score += p.ScoreValue;
         pickupsFound++;
@@ -77,6 +79,24 @@ public class GameController : MonoBehaviour
             FinishedUI.SetActive(true);
             finishedText.text = "It took you " + timeTaken.ToString() + " to find " + pickupsFound.ToString();
             gameFinished = true;
+
+            foreach(Missile m in Missile.instances)
+            {
+                Instantiate(PrefabStore.me.explosionEffect, m.transform.position, m.transform.rotation);
+                Destroy(m.gameObject);
+            }
+
+            foreach(HelicopterEnemy h in HelicopterEnemy.instances)
+            {
+                Instantiate(PrefabStore.me.explosionEffect, h.transform.position, h.transform.rotation);
+                Destroy(h.gameObject);
+            }
+
+            foreach(SamSite s in SamSite.instances)
+            {
+                Instantiate(PrefabStore.me.explosionEffect, s.transform.position, s.transform.rotation);
+                Destroy(s.gameObject);
+            }
         }
     }
 

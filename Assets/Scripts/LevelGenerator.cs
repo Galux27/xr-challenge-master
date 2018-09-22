@@ -23,7 +23,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("Level") ==0 || Application.isEditor)
+        if (PlayerPrefs.GetInt("Level") ==0)
         {
             PlayerPrefs.SetInt("Level", 1);
         }
@@ -240,16 +240,16 @@ public class LevelGenerator : MonoBehaviour
 
         //create world edge
         GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, height), Quaternion.Euler(0, 0, 0));
-        topWall.transform.localScale = new Vector3(width, 2, 1);
+        topWall.transform.localScale = new Vector3(width+2, 2, 1);
         topWall.name = "Top Wall";
         GameObject bottomWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2), 0.5f, -1), Quaternion.Euler(0, 0, 0));
-        bottomWall.transform.localScale = new Vector3(width, 2, 1);
+        bottomWall.transform.localScale = new Vector3(width+2, 2, 1);
         bottomWall.name = "Bottom Wall";
         GameObject rightWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(width , 0.5f, height/2), Quaternion.Euler(0, 0, 0));
-        rightWall.transform.localScale = new Vector3(1, 2, height);
+        rightWall.transform.localScale = new Vector3(1, 2, height+2);
         rightWall.name = "Right Wall";
         GameObject leftWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3(-1.0f, 0.5f, height / 2), Quaternion.Euler(0, 0, 0));
-        leftWall.transform.localScale = new Vector3(1, 2, height);
+        leftWall.transform.localScale = new Vector3(1, 2, height+2);
         leftWall.name = "Left Wall";
     
         GameObject player = (GameObject)Instantiate(PrefabStore.me.player, validPoints[Random.Range(0, validPoints.Count)], Quaternion.Euler(0, 0, 0));
