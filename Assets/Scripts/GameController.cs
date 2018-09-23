@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        score = PlayerPrefs.GetInt("Score");
         pickups = FindObjectsOfType<Pickup>();
         foreach (Pickup p in pickups) {
             p.OnPickUp += addScore;
@@ -34,8 +35,6 @@ public class GameController : MonoBehaviour
 
     void addScore(Pickup p)
     {
-
-
         Debug.Log("Score being increased");
         score += p.ScoreValue;
         pickupsFound++;
@@ -64,6 +63,7 @@ public class GameController : MonoBehaviour
 
     public void loadNextLevel()
     {
+        PlayerPrefs.SetInt("Score", score);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour
         if (FinishedUI.activeInHierarchy == false)
         {
             FinishedUI.SetActive(true);
-            finishedText.text = "It took you " + timeTaken.ToString() + " to find " + pickupsFound.ToString();
+            finishedText.text = "It took you " + Mathf.RoundToInt(timeTaken).ToString() + " seconds to reach " + pickupsFound.ToString() + " objectives.";
             gameFinished = true;
 
             foreach(Missile m in Missile.instances)
@@ -105,5 +105,18 @@ public class GameController : MonoBehaviour
         objectiveReminder.enabled = true;
     }
 
+    public int getPickupsFound()
+    {
+        return pickupsFound;
+    }
 
+    public int getScore()
+    {
+        return score;
+    }
+
+    public void increaseScore(int val)
+    {
+        score += val;
+    }
 }

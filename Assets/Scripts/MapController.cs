@@ -49,6 +49,11 @@ public class MapController : MonoBehaviour
         revealMap(ind);
         foreach(Pickup p in GameController.me.pickups)
         {
+            if(p==null)
+            {
+                continue;
+            }
+
             if (p.IsCollected == false)
             {
                 Vector2Int ind2 = getWorldPosInArray(p.transform.position);

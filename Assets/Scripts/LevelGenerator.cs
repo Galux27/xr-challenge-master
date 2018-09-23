@@ -42,7 +42,7 @@ public class LevelGenerator : MonoBehaviour
     void generateLevel()
     {
 
-        for(int x= 0; x < PlayerPrefs.GetInt("Level"); x++)
+        for(int x= 1; x < PlayerPrefs.GetInt("Level"); x++)
         {
             if(width<100)
             {
@@ -238,9 +238,9 @@ public class LevelGenerator : MonoBehaviour
                     g.transform.parent = this.transform;
 
                     bool surroundedByUnwalkable = true;
-                    for(int x2 = x - 1; x2 < x + 1 && surroundedByUnwalkable==true; x2++)
+                    for(int x2 = x - 1; x2 <= x + 1 && surroundedByUnwalkable==true; x2++)
                     {
-                        for(int y2=y-2; y2<y+1 && surroundedByUnwalkable == true; y2++)
+                        for(int y2=y-2; y2<=y+1 && surroundedByUnwalkable == true; y2++)
                         {
                             if (isPosInWorld(x2, y2) == true)
                             {
@@ -262,7 +262,7 @@ public class LevelGenerator : MonoBehaviour
         //create floor
         GameObject floor = (GameObject) Instantiate(floorPrefab, new Vector3((width / 2)-0.5f, -1.0f, (height / 2)-0.25f), Quaternion.Euler(0, 0, 0));
         floor.transform.localScale = new Vector3(width+1, 1, height+1);
-
+        floor.GetComponent<Renderer>().material.SetTextureScale("_MainTex", new Vector2(width, height));
         //create world edge
         GameObject topWall = (GameObject)Instantiate(unwalkablePrefab, new Vector3((width / 2)+1, 0.5f, height), Quaternion.Euler(0, 0, 0));
         topWall.transform.localScale = new Vector3(width+2, 2, 1);
@@ -288,17 +288,23 @@ public class LevelGenerator : MonoBehaviour
 
         for (int x = 0; x < starsToSpawn; x++)
         {
-            GameObject star = (GameObject) Instantiate(starPrefab, validPoints[Random.Range(0, validPoints.Count)], starPrefab.transform.rotation);
+            int i = Random.Range(0, validPoints.Count);
+            GameObject star = (GameObject) Instantiate(starPrefab, validPoints[i], starPrefab.transform.rotation);
+            validPoints.RemoveAt(i);
             levelGenerated[Mathf.RoundToInt(star.transform.position.x), Mathf.RoundToInt(star.transform.position.z)] = 's';
         }
 
-        GameObject exit = (GameObject)Instantiate(exitPrefab, validPoints[Random.Range(0, validPoints.Count)], exitPrefab.transform.rotation);
+        int exitInd = Random.Range(0, validPoints.Count);
+        GameObject exit = (GameObject)Instantiate(exitPrefab,validPoints[exitInd] , exitPrefab.transform.rotation);
+        validPoints.RemoveAt(exitInd);
         levelGenerated[Mathf.RoundToInt(exit.transform.position.x), Mathf.RoundToInt(exit.transform.position.z)] = 'e';
 
         int numOfHelisToSpawn = 5 + PlayerPrefs.GetInt("Level");
         for(int x=0;x<numOfHelisToSpawn;x++)
         {
-            Vector3 pos = validPoints[Random.Range(0,validPoints.Count)];
+            int i = Random.Range(0, validPoints.Count);
+            Vector3 pos = validPoints[i];
+            validPoints.RemoveAt(i);
             if (Vector3.Distance(pos, player.transform.position) >= 15)
             {
                 Instantiate(PrefabStore.me.hind, pos, Quaternion.Euler(0, 0, 0));
@@ -308,7 +314,9 @@ public class LevelGenerator : MonoBehaviour
         int numOfSamsToSpawn = 3 + PlayerPrefs.GetInt("Level");
         for (int x = 0; x < numOfSamsToSpawn; x++)
         {
-            Vector3 pos = validPoints[Random.Range(0, validPoints.Count)];
+            int i = Random.Range(0, validPoints.Count);
+            Vector3 pos = validPoints[i];
+            validPoints.RemoveAt(i);
             if (Vector3.Distance(pos, player.transform.position) >= 15)
             {
                 Instantiate(PrefabStore.me.sam, pos, Quaternion.Euler(0, 0, 0));

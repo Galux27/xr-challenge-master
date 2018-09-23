@@ -13,6 +13,8 @@ public class PrefabStore : MonoBehaviour
     [SerializeField]
     Shader defaultShader;
 
+
+
     public Material wallMat;
     public List<Material> oneHighBuildings, twoHighBuildings, threeHighBuildings;//list of materials for the heights of buildings we could potentially have, 
     //hopefully by just referencing materials from here rather than changing each instance performance will be increased
@@ -51,17 +53,12 @@ public class PrefabStore : MonoBehaviour
     {
         if(yScale<1.1f)
         {
-            Debug.Log("returning 1 high material");
             return oneHighBuildings[Random.Range(0, oneHighBuildings.Count)];
         }else if(yScale<2.1f)
         {
-            Debug.Log("returning 2 high material");
-
             return twoHighBuildings[Random.Range(0, twoHighBuildings.Count)];
         }else if (yScale < 3.1f)
         {
-            Debug.Log("returning 3 high material");
-
             return threeHighBuildings[Random.Range(0, threeHighBuildings.Count)];
         }
         return oneHighBuildings[Random.Range(0, oneHighBuildings.Count)];

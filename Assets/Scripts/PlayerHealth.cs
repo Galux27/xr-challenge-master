@@ -11,7 +11,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     public Image healthDisp;
 
-
+    [SerializeField]
+    Text deathText;
     [SerializeField]
     GameObject deathDisplayParent;
     [SerializeField]
@@ -35,15 +36,31 @@ public class PlayerHealth : MonoBehaviour
         if (health<=0)
         {
             deathDisplayParent.SetActive(true);
+            deathText.text = "You finished " + getNumberOfObjectivesComplete().ToString() + " objectives before dying. Your final score was " + GameController.me.getScore().ToString() + ".";
             Instantiate(PrefabStore.me.explosionEffect, PlayerMovement.me.transform.position, PlayerMovement.me.transform.rotation);
             PlayerMovement.me.setDead();
             //create explosion, reset stuff, fail
         }
     }
 
+    int getNumberOfObjectivesComplete()
+    {
+        int i = 0;
+        int baseVal = 10;
+        for(int x = 1; x < PlayerPrefs.GetInt("Level"); x++)
+        {
+            i += baseVal;
+            baseVal += 2;
+        }
+
+        i += GameController.me.getPickupsFound();
+        return i;
+    }
+
     public void deathRestart()
     {
-        PlayerPrefs.SetInt("Level", 1);
+        PlayerPrefs.SetInt("Score", 0);
+        PlayerPrefs.SetInt("Level", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

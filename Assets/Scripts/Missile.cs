@@ -68,12 +68,13 @@ public class Missile : MonoBehaviour
         }else if (collision.gameObject.tag == "EnemyHeli")
         {
             Instantiate(PrefabStore.me.explosionEffect, collision.contacts[0].point, Quaternion.Euler(0, 0, 0));
-
+            GameController.me.increaseScore(100);
             Destroy(collision.gameObject);
         }
         else if(collision.gameObject.tag== "SAM")
         {
             Instantiate(PrefabStore.me.explosionEffect, collision.contacts[0].point, Quaternion.Euler(0, 0, 0));
+            GameController.me.increaseScore(50);
 
             Destroy(collision.gameObject);
         }
