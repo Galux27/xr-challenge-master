@@ -10,7 +10,6 @@ public class CameraFollowPlayer : MonoBehaviour
     [SerializeField]
     Vector3 differenceToPlayer;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         this.transform.position = Vector3.Slerp(this.transform.position, playerTransform.position + differenceToPlayer, 5.0f * Time.deltaTime);

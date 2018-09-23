@@ -7,7 +7,6 @@ public class LevelGenerator : MonoBehaviour
     //n==unwalkable
     //r==room
     //c==corridor
-    //
 
     [SerializeField]
     GameObject unwalkablePrefab,floorPrefab,starPrefab,exitPrefab;
@@ -39,6 +38,8 @@ public class LevelGenerator : MonoBehaviour
         MapController.me.setMapTexture(mapBase);
     }
 
+    //Level generation works by starting with a grid of unwalkable nodes and then moving an actor about the grid for a set number of iterations to carve out the level
+    //each iteration a random number is generated to see if the actor should change direction, create a room or do nothing.
     void generateLevel()
     {
 
@@ -326,7 +327,7 @@ public class LevelGenerator : MonoBehaviour
         createMapBase();
     }
 
-    void createMapBase()
+    void createMapBase() //generates a texture2d that represents the gameworld, done here then passed into the MapController script as we only want to do it once because its performance intensive and the data from it won't change whilst the player is playing.
     {
         mapBase = new Texture2D(width, height);
 

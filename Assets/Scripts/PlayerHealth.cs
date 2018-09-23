@@ -39,7 +39,6 @@ public class PlayerHealth : MonoBehaviour
             deathText.text = "You finished " + getNumberOfObjectivesComplete().ToString() + " objectives before dying. Your final score was " + GameController.me.getScore().ToString() + ".";
             Instantiate(PrefabStore.me.explosionEffect, PlayerMovement.me.transform.position, PlayerMovement.me.transform.rotation);
             PlayerMovement.me.setDead();
-            //create explosion, reset stuff, fail
         }
     }
 

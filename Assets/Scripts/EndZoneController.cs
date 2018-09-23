@@ -21,13 +21,11 @@ public class EndZoneController : MonoBehaviour
         {
             if (GameController.me.isGameFinished())
             {
-                Debug.Log("Game is done");
                 r.material = mat1;
                 GameController.me.setPlayerExited();
             }
             else
             {
-                Debug.Log("Game is not done");
                 r.material = mat2;
                 GameController.me.enableObjectiveReminder();
             }
